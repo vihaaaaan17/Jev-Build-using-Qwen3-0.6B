@@ -1,0 +1,13 @@
+{
+  "exp_id": "kaggle-jev-20261008-063713",
+  "step": 750,
+  "model_name": "Qwen/Qwen3-0.6B",
+  "num_layers": 20,
+  "head_config": {
+    "new_dim": 512,
+    "num_layers": 2,
+    "num_task_types": 3
+  },
+  "max_state_tokens": 768,
+  "max_choice_tokens": 64
+}

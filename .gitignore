@@ -1,0 +1,25 @@
+# API keys and secrets (CRITICAL)
+kaggle.json
+*.key
+.env
+
+# Raw output downloads and large archives (>100MB violates GitHub limits)
+kaggle_out/
+kaggle_out_v3/
+kaggle_kernel_run/
+*.zip
+
+# Python and virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+.ipynb_checkpoints/
+
+# System and logs
+*.log
+!experiment_results/logs/*.log
+.DS_Store
+Thumbs.db

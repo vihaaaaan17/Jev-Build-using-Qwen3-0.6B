@@ -1,0 +1,15 @@
+{
+  "checkpoint": "runs/kaggle-jev-20261008-055555/checkpoints/final",
+  "final_train_loss": 0.8561949192737348,
+  "final_train_accuracy": 0.6061197916666666,
+  "test": {
+    "loss": 0.8040017280578613,
+    "accuracy": 0.622,
+    "accuracy_noul": 0.7564766839378239,
+    "accuracy_score": 0.49137931034482757,
+    "accuracy_choice": 0.5654450261780105,
+    "auc_noul": 0.8264367816091954
+  },
+  "best_test_accuracy": 0.622,
+  "duration_sec": 1482.7
+}
