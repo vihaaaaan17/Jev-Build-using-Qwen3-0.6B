@@ -80,6 +80,7 @@ Scaling from the 20,000-sample baseline to a **50,000-sample single-epoch regime
 ```
 experiment_results/
 ├── README.md                      # This documentation report
+├── bev_train_kaggle.ipynb         # Standalone self-contained Kaggle notebook
 ├── inference_example.py           # Standalone Python script for local testing
 ├── checkpoints/
 │   └── best/                      # Best checkpoint (69.50% test accuracy, 0.8667 AUC)
