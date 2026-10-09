@@ -2,7 +2,7 @@
 
 This repository contains the training artifacts, evaluation metrics, logs, and fine-tuned checkpoints for the **JEV (Judge / Evaluator / Verifier)** architecture built on the **Qwen3-0.6B** backbone.
 
-The model was trained on the [`avbiswas/bev-decision`](https://huggingface.co/datasets/avbiswas/bev-decision) benchmark to evaluate decisions across three distinct tasks:
+The model was trained on the `bev-decision` benchmark dataset to evaluate decisions across three distinct tasks:
 1. **`choice`**: Selecting the best action among multiple competing alternatives without position bias.
 2. **`noul`**: Binary decisions (*No / Yes*) with calibrated probabilities.
 3. **`score`**: Ordinal ratings and continuous evaluation metrics.
@@ -11,18 +11,18 @@ The model was trained on the [`avbiswas/bev-decision`](https://huggingface.co/da
 
 ## 1. Executive Summary & Benchmark Results
 
-Scaling from the 20,000-sample baseline to a **50,000-sample single-epoch regime with LoRA rank $r=16$** yielded significant performance gains across all tasks, establishing a new state of the art on this dataset compared to the original author reference:
+Scaling from our 20,000-sample baseline to an optimized **50,000-sample single-epoch regime with LoRA rank $r=16$** yielded significant performance gains across all tasks:
 
-| Metric | Author Baseline (Mac, 20k) | Run 1 (20k Questions) | **Run 3 (50k Questions - Best)** | Net Improvement |
-| :--- | :---: | :---: | :---: | :---: |
-| **Overall Test Accuracy** | 57.70% | 62.20% | **69.50%** | **+7.30%** (+11.80% over Author) |
-| **Test Loss** | ~0.850 | 0.8040 | **0.6830** | **-0.1210** |
-| **AUC (`noul` Yes/No)** | ~0.760 | 0.8260 | **0.8667** | **+0.0407** |
-| **Choice Accuracy** | ~52.0% | 56.54% | **68.01%** | **+11.47%** |
-| **Noul (Yes/No) Accuracy** | ~73.0% | 75.65% | **78.07%** | **+2.42%** |
-| **Score Accuracy** | ~45.0% | 49.14% | **56.82%** | **+7.68%** |
-| **Optimizer Steps** | 312 steps | 312 steps | **781 steps** | 2.5× gradient updates |
-| **Training Duration** | ~35 min (Mac) | 24.7 min (T4) | **67.0 min (T4)** | Full single-pass run |
+| Metric | Baseline Model (20k Questions) | **Optimized Model (50k Questions)** | Improvement |
+| :--- | :---: | :---: | :---: |
+| **Overall Test Accuracy** | 62.20% | **69.50%** | **+7.30%** |
+| **Test Loss** | 0.8040 | **0.6830** | **-0.1210** |
+| **AUC (`noul` Yes/No)** | 0.8260 | **0.8667** | **+0.0407** |
+| **Choice Accuracy** | 56.54% | **68.01%** | **+11.47%** |
+| **Noul (Yes/No) Accuracy** | 75.65% | **78.07%** | **+2.42%** |
+| **Score Accuracy** | 49.14% | **56.82%** | **+7.68%** |
+| **Optimizer Steps** | 312 steps | **781 steps** | 2.5× updates |
+| **Training Duration** | 24.7 min (T4) | **67.0 min (T4)** | Full single-pass run |
 
 ---
 
@@ -153,30 +153,4 @@ with torch.no_grad():
 
 for option, p in zip(question["criteria"].keys(), probs):
     print(f"{option}: {p*100:.1f}%")
-```
-
----
-
-## 6. Uploading Checkpoint to Hugging Face Hub
-
-To publish the trained checkpoint to Hugging Face:
-
-```python
-import os
-from huggingface_hub import HfApi
-
-# Set your Hugging Face write token
-token = os.environ.get("HF_TOKEN") or "YOUR_HF_TOKEN"
-repo_id = "your-username/qwen3-jev-50k"
-
-api = HfApi(token=token)
-api.create_repo(repo_id=repo_id, exist_ok=True, repo_type="model")
-
-# Upload the best checkpoint folder
-api.upload_folder(
-    folder_path="experiment_results/checkpoints/best",
-    repo_id=repo_id,
-    repo_type="model"
-)
-print(f"Model successfully uploaded to: https://huggingface.co/{repo_id}")
 ```
