@@ -9,20 +9,20 @@ The model was trained on the `bev-decision` benchmark dataset to evaluate decisi
 
 ---
 
-## 1. Executive Summary & Benchmark Results
+## 1. Experimental Results: Dataset Scaling (20k vs. 50k Questions)
 
-Scaling from our 20,000-sample baseline to an optimized **50,000-sample single-epoch regime with LoRA rank $r=16$** yielded significant performance gains across all tasks:
+To evaluate the effect of dataset scale on decision modeling performance, two training experiments were conducted under identical evaluation protocols across 20,000 and 50,000 question samples:
 
-| Metric | Baseline Model (20k Questions) | **Optimized Model (50k Questions)** | Improvement |
-| :--- | :---: | :---: | :---: |
-| **Overall Test Accuracy** | 62.20% | **69.50%** | **+7.30%** |
-| **Test Loss** | 0.8040 | **0.6830** | **-0.1210** |
-| **AUC (`noul` Yes/No)** | 0.8260 | **0.8667** | **+0.0407** |
-| **Choice Accuracy** | 56.54% | **68.01%** | **+11.47%** |
-| **Noul (Yes/No) Accuracy** | 75.65% | **78.07%** | **+2.42%** |
-| **Score Accuracy** | 49.14% | **56.82%** | **+7.68%** |
-| **Optimizer Steps** | 312 steps | **781 steps** | 2.5× updates |
-| **Training Duration** | 24.7 min (T4) | **67.0 min (T4)** | Full single-pass run |
+| Metric | 20,000 Questions Run | 50,000 Questions Run |
+| :--- | :---: | :---: |
+| **Overall Test Accuracy** | 62.20% | 69.50% |
+| **Test Loss** | 0.8040 | 0.6830 |
+| **AUC (`noul` Yes/No)** | 0.8260 | 0.8667 |
+| **Choice Accuracy** | 56.54% | 68.01% |
+| **Noul (Yes/No) Accuracy** | 75.65% | 78.07% |
+| **Score Accuracy** | 49.14% | 56.82% |
+| **Optimizer Steps** | 312 steps | 781 steps |
+| **Training Duration** | 24.7 min (T4) | 67.0 min (T4) |
 
 ---
 
@@ -97,7 +97,7 @@ experiment_results/
     │   ├── summary.json           # Evaluation metrics breakdown
     │   ├── config.yaml            # Full training configuration
     │   └── run.json               # Run metadata
-    ├── run_20k_baseline/          # 20,000 questions baseline artifacts
+    ├── run_20k_baseline/          # 20,000 questions run artifacts
     │   ├── metrics.jsonl
     │   └── summary.json
     └── kaggle_console.log         # Full Kaggle execution console output
